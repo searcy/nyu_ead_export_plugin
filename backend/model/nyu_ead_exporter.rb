@@ -37,10 +37,6 @@ class EADSerializer < ASpaceExport::Serializer
                   xml.did {
 
 
-                    if (val = data.language)
-                      xml.langmaterial { xml.language(:langcode => val) }
-                    end
-
                     if (val = data.repo.name)
                       xml.repository {
                         xml.corpname { sanitize_mixed_content(val, xml, @fragments) }
@@ -462,13 +458,6 @@ class EADSerializer < ASpaceExport::Serializer
                       creation = "This finding aid was produced using ArchivesSpace <date>#{Time.now.utc.iso8601.gsub!('Z','')}</date>"
                       xml.creation {  sanitize_mixed_content( creation, xml, fragments) }
 
-                      if (val = data.finding_aid_language)
-                        xml.langusage (fragments << val)
-                      end
-
-                      if (val = data.descrules)
-                        xml.descrules { sanitize_mixed_content(val, xml, fragments) }
-                      end
                     }
 
                     if data.revision_statements.length > 0
